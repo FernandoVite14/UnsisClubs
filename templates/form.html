@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block title %}Registro de Estudiante{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+  <div class="card p-4 shadow-lg" style="min-width: 400px; max-width: 600px;">
+    <h3 class="text-center mb-4 text-dark">Registrar Estudiante</h3>
+    <form action="{{ url_for('registrar') }}" method="POST">
+      <div class="mb-3">
+        <label class="form-label">Selecciona Club</label>
+        <select name="club" class="form-select" required>
+          {% for c in clubs %}
+            <option value="{{ c }}">{{ c.capitalize() }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Matrícula</label>
+        <input type="text" name="matricula" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Nombre</label>
+        <input type="text" name="nombre" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Correo</label>
+        <input type="email" name="correo" class="form-control" required>
+      </div>
+      <button class="btn btn-primary w-100" type="submit">Registrar</button>
+    </form>
+    <div class="text-center mt-3">
+      <a href="{{ url_for('home') }}" class="btn btn-outline-secondary">Volver al Home</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

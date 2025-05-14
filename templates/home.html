@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Listado de Clubes{% endblock %}
+
+{% block content %}
+<h1 class="text-center mb-4">Listado de Estudiantes por Club</h1>
+
+<form class="row g-3 mb-4" method="get" id="filtroForm">
+  <div class="col-md-4">
+    <select name="club" class="form-select" id="clubSelect">
+      <option value="">Todos los clubes</option>
+      {% for c in clubs %}
+        <option value="{{ c }}" {% if c == filtro_club %}selected{% endif %}>{{ c.capitalize() }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-4">
+    <input type="text" name="matricula" value="{{ filtro_matricula }}" class="form-control" id="matriculaInput" placeholder="Buscar por matrícula (10 caracteres)">
+  </div>
+</form>
+
+<table class="table table-striped table-hover table-dark rounded shadow">
+  <thead class="table-light text-dark">
+    <tr>
+      <th>Club</th>
+      <th>Matrícula</th>
+      <th>Nombre</th>
+      <th>Correo</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for r in registros %}
+      <tr>
+        <td>{{ r.club }}</td>
+        <td>{{ r.matricula }}</td>
+        <td>{{ r.nombre }}</td>
+        <td>{{ r.correo }}</td>
+      </tr>
+    {% else %}
+      <tr>
+        <td colspan="4" class="text-center">No hay registros</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<div class="text-center">
+  <a href="{{ url_for('form') }}" class="btn btn-success">Registrar nuevo estudiante</a>
+</div>
+
+<script>
+  // Envía al seleccionar club
+  document.getElementById('clubSelect').addEventListener('change', function () {
+    document.getElementById('filtroForm').submit();
+  });
+
+  // Envía automáticamente al escribir 10 caracteres en matrícula
+  document.getElementById('matriculaInput').addEventListener('input', function () {
+    if (this.value.length === 10) {
+      document.getElementById('filtroForm').submit();
+    }
+  });
+</script>
+{% endblock %}
