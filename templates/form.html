@@ -17,7 +17,9 @@
       </div>
       <div class="mb-3">
         <label class="form-label">Matrícula</label>
-        <input type="text" name="matricula" class="form-control" required>
+         <input type="text" name="matricula" class="form-control" required
+         pattern="^\d{10}$" maxlength="10" minlength="10"
+         title="La matrícula debe tener exactamente 10 dígitos numéricos.">
       </div>
       <div class="mb-3">
         <label class="form-label">Nombre</label>
