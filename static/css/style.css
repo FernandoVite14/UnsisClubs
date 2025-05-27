@@ -1,0 +1,9 @@
+:root {
+  --color-boton-registro: #198754; /* valor por defecto (verde Bootstrap) */
+}
+
+.boton-registro {
+  background-color: var(--color-boton-registro) !important;
+  border-color: var(--color-boton-registro) !important;
+  color: white !important;
+}

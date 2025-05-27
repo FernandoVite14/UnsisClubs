@@ -3,6 +3,11 @@
 {% block title %}Listado de Clubes{% endblock %}
 
 {% block content %}
+<!-- Aviso importante desde Remote Config -->
+<div id="aviso-importante" class="alert alert-warning text-dark fw-bold text-center mb-4">
+  Cargando aviso importante...
+</div>
+
 <h1 class="text-center mb-4">Listado de Estudiantes por Club</h1>
 
 <form class="row g-3 mb-4" method="get" id="filtroForm">
@@ -45,7 +50,7 @@
 </table>
 
 <div class="text-center">
-  <a href="{{ url_for('form') }}" class="btn btn-success">Registrar nuevo estudiante</a>
+  <a href="{{ url_for('form') }}" class="btn boton-registro">Registrar nuevo estudiante</a>
 </div>
 
 <script>
@@ -61,4 +66,36 @@
     }
   });
 </script>
+
+<!-- Firebase Remote Config: módulo importado -->
+<script type="module">
+  import { obtenerAvisoImportante } from "/static/js/firebase-init.js";
+
+  async function actualizarAviso() {
+    const aviso = await obtenerAvisoImportante();
+    const avisoContainer = document.getElementById("aviso-importante");
+    if (avisoContainer) {
+      avisoContainer.textContent = aviso;
+    }
+  }
+   // Llama inicialmente
+  actualizarAviso();
+
+  // Y luego cada 10 segundos
+  setInterval(actualizarAviso, 10000);
+</script>
+
+<script type="module">
+  import { obtenerColorBotonRegistro } from "/static/js/firebase-init.js";
+
+  async function aplicarColorBotonRegistro() {
+    const color = await obtenerColorBotonRegistro();
+    if (color) {
+      document.documentElement.style.setProperty('--color-boton-registro', color);
+    }
+  }
+
+  aplicarColorBotonRegistro();
+</script>
+
 {% endblock %}
